@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block head %}
+   <title>{{user}} -Profile</title>
+   <meta charset="utf-8">
+
+  <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'quizportal/css/main.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cloud.tinymce.com/5/tinymce.min.js?tr6u42g4zdmgjpga33v340lzn5y3qnpfw95kkizuu517u1bf"></script>
+  <script>tinymce.init({ selector:'textarea'});</script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'quizportal/css/main.css' %}">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+{% endblock %}
+{% block body %}
+   	   <div class="card" style="width: 100%;">
+            <div class="card-body" style="margin-left: 40%;">
+               <h5 class="card-title" style="margin-left: 50px;">{{user}}</h5>
+               <h6 class="card-subtitle mb-2 text-muted" style="margin-left: 50px";>{{user.first_name}} {{ user.last_name}}  </h6>
+               <p class="card-text">Email - {{user.email}}</p> 
+            </div>
+         </div>
+         <br>
+         <div class="container">
+            {% for post in posts%}
+      <div class="jumbotron jumbotron-fluid" style="margin-bottom: 10px;border: 1px solid;border-radius: 10px;width: 100%;">
+         <div class="card-body">
+            {% if post.postImg %}
+            <br>
+            <img class="card-img-top"  src="{{post.postImg.url}}" alt="Card image" style="width:400px;" style="height:400px;">
+            {% endif %}
+            {% if post.postVid %}
+            <br>
+            <video width='400' height="240" controls>
+               <source src="/media/{{ post.postVid }}" type='video/mp4'>
+               Your browser does not support the video tag.
+               </video>
+            {% endif %}
+
+            <p class="card-text" id="card-text" style="padding-bottom: 25px;display: inline; ">{{ post.post | safe }}</p>
+            <br>
+
+              <footer class="blockquote-footer" style="margin-top: 80px;margin-bottom: 0%">{{ post.user.get_full_name }}<cite title="Source Title"> on {{ post.created |naturaltime }}</cite></footer>
+              <br>
+              <br>
+              <br>
+              <button class="collapsible">Show in Hindi</button>
+               <div class="content">
+                     <p>{{ post.translated_post | safe }}</p>
+               </div>
+         </div>
+        </div>
+       {% endfor %}
+      {% if posts.has_other_pages %}
+        <ul class="pagination">
+          {% if posts.has_previous %}
+            <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in posts.paginator.page_range %}
+            {% if posts.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+            <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+         </div>
+         
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+{% endblock %}

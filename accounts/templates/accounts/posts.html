@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block body %}
+{% if posts %}
+    <!-- {% for post in posts.object_list %}
+        <a href="{% url post.views.post post.id post.slug %}">{{ post.title }}</a>
+        {{ post.body|truncatewords:80 }}
+    {% endfor %} -->
+    <div class="pagination">
+      <ul>
+          {% if posts.has_previous %}
+              <li><a href="?page={{ posts.previous_page_number }}">Previous</a></li>
+          {% endif %}
+          {% for pg in posts.paginator.page_range %}
+              {% if posts.number == pg %}
+                  <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% else %}
+                  <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+              <li><a href="?page={{ posts.next_page_number }}">Next</a></li>
+          {% endif %}
+      </ul>
+    </div>
+{% endif %}
+{% endblock %}

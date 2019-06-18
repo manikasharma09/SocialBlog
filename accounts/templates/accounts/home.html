@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block head %}
+<title>Social Network</title>
+	<meta charset="utf-8">
+
+  <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'quizportal/css/main.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cloud.tinymce.com/5/tinymce.min.js?tr6u42g4zdmgjpga33v340lzn5y3qnpfw95kkizuu517u1bf"></script>
+  <script>tinymce.init({ selector:'textarea'});</script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'quizportal/css/main.css' %}">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+{% endblock %}
+{% block body %}
+
+<div class="header">
+  <h2>Social Network</h2>
+</div>
+
+<div class="container">
+		<div id="div123" class="col-md-8">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Post
+</button>
+&nbsp;&nbsp;
+<a href="/account/STT"><button id="speak" onclick="myFun()" class="btn btn-primary">Speak And Post</button></a>
+<br>
+<br>
+</div>
+<!-- <pre id="STT"></pre> -->
+<div class="col-md-8">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">What Is in Your Mind....</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data" action="">
+			{% csrf_token %}
+  			<textarea placeholder="Type your heart out...." id="text" name="q"></textarea>
+  			<div id="div_id_submission_file" class="form-group">
+   				<label for="id_submission_file" class="control-label">
+  			 		<b>Upload Image</b><span class="asteriskField">*</span> </label> 
+   				<div class="controls "> <input type="file" name="submission_file" class="clearablefileinput" id="id_submission_file"> </div>
+			</div>
+			<div id="div_id_video_file" class="form-group">
+   				<label for="id_video_file" class="control-label">
+  			 		<b>Upload Video</b><span class="asteriskField">*</span> </label> 
+   				<div class="controls "> <input type="file" name="video_file" class="clearablefileinput" id="id_video_file"> </div>
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    	</form>
+      </div>
+    </div>
+  </div>
+</div>
+		<h2>{{ text }}</h2>
+		{% for post in posts%}
+		<div class="jumbotron jumbotron-fluid" style="margin-bottom: 10px;border: 1px solid;border-radius: 10px;width: 100%;">
+			<div class="card-body">
+				{% if post.postImg %}
+				<br>
+				<img class="card-img-top"  src="{{post.postImg.url}}" alt="Card image" style="width:400px;" style="height:400px;">
+				{% endif %}
+				{% if post.postVid %}
+				<br>
+				<video width='400' height="240" controls>
+					<source src="/media/{{ post.postVid }}" type='video/mp4'>
+					Your browser does not support the video tag.
+					</video>
+				{% endif %}
+
+				<p class="card-text" id="card-text" style="padding-bottom: 25px;display: inline;	">{{ post.post | safe }}</p>
+				<br>
+
+		        <footer class="blockquote-footer" style="margin-top: 80px;margin-bottom: 0%">{{ post.user.get_full_name }}<cite title="Source Title"> on {{ post.created |naturaltime }}</cite></footer>
+		        <br>
+		        <br>
+		        <br>
+		        <button class="collapsible">Show in Hindi</button>
+				<div class="content">
+						<p>{{ post.translated_post | safe }}</p>
+				</div>
+			</div>
+		  </div>
+	    {% endfor %}
+		{% if posts.has_other_pages %}
+		  <ul class="pagination">
+		    {% if posts.has_previous %}
+		      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+		    {% else %}
+		      <li class="disabled"><span>&laquo;</span></li>
+		    {% endif %}
+		    {% for i in posts.paginator.page_range %}
+		      {% if posts.number == i %}
+		        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+		      {% else %}
+		        <li><a href="?page={{ i }}">{{ i }}</a></li>
+		      {% endif %}
+		    {% endfor %}
+		    {% if posts.has_next %}
+		      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+		    {% else %}
+		      <li class="disabled"><span>&raquo;</span></li>
+		    {% endif %}
+		  </ul>
+		{% endif %}
+</div>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+<script type="text/javascript">
+	function myFunc(){
+
+		var STT=document.getElementById('pre1').innerHTML="Please Speak!!";
+	}
+
+		function myFun(){
+	var para = document.createElement("pre");
+	para.setAttribute("id", "pre1");
+	
+	// console.log(para);
+	var node = document.createTextNode("Please Wait A moment While we initialize Speech to Text!!");
+	// console.log(node);
+	para.appendChild(node);
+	var element = document.getElementById("div123");
+	// console.log(element);
+	element.appendChild(para);
+	// console.log("done");
+	// var STT=document.getElementById('STT').innerHTML="Please Wait A moment While we initialize Speech to Text!!";
+	setTimeout(myFunc, 2000);
+}
+</script>
+{% endblock %}

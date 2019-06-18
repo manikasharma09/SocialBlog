@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block head %}
+	<title>Register</title>
+	<SCRIPT type="text/javascript">
+		function preventBack() { window.history.forward(); }
+		setTimeout("preventBack()", 0);
+		window.onunload = function () { null };
+	</SCRIPT>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--==============================Q=================================================================-->
+	<link rel="icon" type="image/png" href={% static 'quizportal/images/icons/favicon.ico' %} />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/bootstrap/css/bootstrap.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+	href={% static 'quizportal/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+	href={% static 'quizportal/fonts/iconic/css/material-design-iconic-font.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/animate/animate.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/css-hamburgers/hamburgers.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/animsition/css/animsition.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/select2/select2.min.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/vendor/daterangepicker/daterangepicker.css' %}>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/css/util.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'quizportal/css/main.css' %}>
+	<!--===============================================================================================-->
+{% endblock %}
+
+{% block body %}
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('static/quizportal/images/bg-01.jpg');">
+			<div class="wrap-login100">
+
+									<div class="text-center p-t-30">
+										<a class="txt1" href="/">
+											Already have an account Login here.
+										</a>
+									</div>
+				<form method="POST" action="">
+					{% csrf_token %}
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Register
+					</span>
+
+					<div class="container">
+						<div id="div_id_username" class="form-group">
+							<label for="id_username" class="control-label  requiredField">
+								Username<span class="asteriskField">*</span> </label> 
+								<div class="controls ">
+									<input type="text" name="username" maxlength="150" autofocus="" class="textinput textInput form-control" required="" id="id_username"> 
+									<p id="hint_id_username" class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+								</div>
+								<label for="id_first_name
+							</div>
+							<div id="" class="control-label requiredField">
+									<span class="asteriskField">*</span>
+									First name
+								</label> 
+								<div class="controls "> <input type="text" name="first_name" maxlength="30" class="textinput textInput form-control" required="" id="id_first_name"> </div>
+							</div>
+							<div id="div_id_password1" class="form-group">
+								<label for="id_password1" class="control-label  requiredField">
+									Password<span class="asteriskField">*</span> </label> 
+									<div class="controls ">
+										<input type="password" name="password1" class="textinput textInput form-control" required="" id="id_password1"> 
+										<p id="hint_id_password1" class="help-block"></p>
+										<ul>
+											<li>Your password can't be too similar to your other personal information.</li>
+											<li>Your password must contain at least 8 characters.</li>
+											<li>Your password can't be a commonly used password.</li>
+											<li>Your password can't be entirely numeric.</li>
+										</ul>
+										<p></p>
+									</div>
+								</div>
+								<div id="div_id_password2" class="form-group">
+									<label for="id_password2" class="control-label  requiredField">
+										Password confirmation<span class="asteriskField">*</span> </label> 
+										<div class="controls ">
+											<input type="password" name="password2" class="textinput textInput form-control" required="" id="id_password2"> 
+											<p id="hint_id_password2" class="help-block">Enter the same password as before, for verification.</p>
+										</div>
+									</div>
+								</div>
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn">
+										Register
+									</button>
+								</div>
+								<b>
+								</b>
+								<b>
+									<div class="text-center p-t-40" style="font-size: 15px;">
+										Developer :- Manika Sharma
+										<a href="https://www.facebook.com/abhinav.sharma.16906" class="fa fa-facebook"></a>
+									</div>
+								</b>
+							</form>
+						</div>
+						<b>
+							<div class="text-center p-t-30">
+								<a class="txt1" href="/">
+									Already have an account Login here.
+								</a>
+							</div>
+						</b>
+
+						<b>
+						</b>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="dropDownSelect1"></div>
+
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/jquery/jquery-3.2.1.min.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/animsition/js/animsition.min.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/bootstrap/js/popper.js' %}></script>
+		<script src={% static 'quizportal/vendor/bootstrap/js/bootstrap.min.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/select2/select2.min.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/daterangepicker/moment.min.js' %}></script>
+		<script src={% static 'quizportal/vendor/daterangepicker/daterangepicker.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/vendor/countdowntime/countdowntime.js' %}></script>
+		<!--===============================================================================================-->
+		<script src={% static 'quizportal/js/main.js' %}></script>
+	{% endblock %}
+	</body>
+
+	</html>

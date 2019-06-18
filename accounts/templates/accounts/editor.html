@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cloud.tinymce.com/5/tinymce.min.js?tr6u42g4zdmgjpga33v340lzn5y3qnpfw95kkizuu517u1bf"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+</head>
+<body>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Post
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">What Is in Your Mind....</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+		{% csrf_token %}
+  		<textarea placeholder="Type your heart out...." id="text" name="q">Type Your Heart out....</textarea>
+  		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

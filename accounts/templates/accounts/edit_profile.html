@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+ {% block head %}
+   	<title>Home</title>
+{% endblock %}
+
+{% block body %}
+   	<div class="container" style="margin-left: 15%;margin-top: 5%;border: 1px solid;border-radius: 5px;">
+          <form method="post">
+            <div class="form-group">
+               <label for="email">Email address:</label>
+              <input type="email" class="form-control" id="email">
+         </div>
+         <div class="form-group">
+            <label for="pwd">First Name</label>
+            <input type="name" class="form-control" id="pwd">
+         </div>
+         <div class="form-group">
+            <label for="pwd">Last Name</label>
+            <input type="name" class="form-control" id="pwd">
+         </div>
+         <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+         </div>
+            <button type="submit">Submit</button>
+   	   </form>
+      <br>
+   	</div>
+   	   
+{% endblock %}
