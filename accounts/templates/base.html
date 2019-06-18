@@ -1,0 +1,62 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	{% block head %}
+	<title>Base</title>
+	{% endblock %}
+</head>
+<body>
+	<br>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Social Network</a>
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+      	{% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/account/logout">Logout</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/account/profile">Profile</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/account/profile/edit">Edit Profile</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/account/change-password">Change Password</a>
+          </li>
+      </ul>
+       
+      {% else %}
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link " href="/account/reset-password">Reset Password</a>
+          </li>
+      </ul>
+       <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/account/login">Login</a>
+          </li>
+      </ul>
+       <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link " href="/account/register">Register</a>
+          </li>
+      </ul>
+      {% endif %}
+        
+      </div>
+    </nav>
+
+
+
+	{% block body %}
+	<h1>
+		Base
+	</h1>
+	{% endblock %}
+</body>
+</html>
