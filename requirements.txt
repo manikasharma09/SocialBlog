@@ -20,7 +20,7 @@ google-cloud-core==0.29.1
 google-cloud-translate==1.4.0
 googleapis-common-protos==1.5.9
 grpcio==1.20.0
-httplib2==0.9.2
+httplib2==0.18.0
 idna==2.8
 keyring==10.6.0
 keyrings.alt==3.0
